@@ -22,7 +22,7 @@
 
 """Connection window."""
 
-from PySide6 import QtGui, QtWidgets
+from PyQt5 import QtGui, QtWidgets
 
 
 class ConnectionDialog(QtWidgets.QDialog):

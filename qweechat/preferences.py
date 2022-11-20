@@ -22,7 +22,7 @@
 
 """Preferences dialog box."""
 
-from PySide6 import QtCore, QtWidgets as QtGui
+from PyQt5 import QtCore, QtWidgets as QtGui
 
 
 class PreferencesDialog(QtGui.QDialog):

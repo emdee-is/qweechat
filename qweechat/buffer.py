@@ -24,7 +24,9 @@
 
 from pkg_resources import resource_filename
 
-from PySide6 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import pyqtSignal
+Signal = pyqtSignal
 
 from qweechat.chat import ChatTextEdit
 from qweechat.input import InputLineEdit
@@ -145,7 +147,7 @@ class BufferWidget(QtWidgets.QWidget):
 class Buffer(QtCore.QObject):
     """A WeeChat buffer."""
 
-    bufferInput = QtCore.Signal(str, str)
+    bufferInput = Signal(str, str)
 
     def __init__(self, data=None):
         QtCore.QObject.__init__(self)

@@ -26,7 +26,9 @@ import hashlib
 import secrets
 import struct
 
-from PySide6 import QtCore, QtNetwork
+from PyQt5 import QtCore, QtNetwork
+from PyQt5.QtCore import pyqtSignal
+Signal = pyqtSignal
 
 from qweechat import config
 from qweechat.debug import DebugDialog
@@ -98,8 +100,8 @@ NETWORK_STATUS = {
 class Network(QtCore.QObject):
     """I/O with WeeChat/relay."""
 
-    statusChanged = QtCore.Signal(str, str)
-    messageFromWeechat = QtCore.Signal(QtCore.QByteArray)
+    statusChanged = Signal(str, str)
+    messageFromWeechat = Signal(QtCore.QByteArray)
 
     def __init__(self, *args):
         super().__init__(*args)

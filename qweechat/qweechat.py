@@ -37,7 +37,7 @@ import sys
 import traceback
 from pkg_resources import resource_filename
 
-from PySide6 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from qweechat import config
 from qweechat.about import AboutDialog
@@ -52,7 +52,7 @@ APP_NAME = 'QWeeChat'
 AUTHOR = 'Sébastien Helleu'
 WEECHAT_SITE = 'https://weechat.org/'
 
-
+# not QFrame
 class MainWindow(QtWidgets.QMainWindow):
     """Main window."""
 
@@ -87,10 +87,16 @@ class MainWindow(QtWidgets.QMainWindow):
         splitter.addWidget(self.list_buffers)
         splitter.addWidget(self.stacked_buffers)
 
+        self.list_buffers.setSizePolicy(QtWidgets.QSizePolicy.Preferred,
+                                        QtWidgets.QSizePolicy.Preferred)
+        self.stacked_buffers.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
+                           QtWidgets.QSizePolicy.Expanding)       
+        # MainWindow
         self.setCentralWidget(splitter)
 
         if self.config.getboolean('look', 'statusbar'):
             self.statusBar().visible = True
+        self.statusBar().visible = True
 
         # actions for menu and toolbar
         actions_def = {
@@ -139,7 +145,7 @@ class MainWindow(QtWidgets.QMainWindow):
         }
         self.actions = {}
         for name, action in list(actions_def.items()):
-            self.actions[name] = QtGui.QAction(
+            self.actions[name] = QtWidgets.QAction(
                 QtGui.QIcon(
                     resource_filename(__name__, 'data/icons/%s' % action[0])),
                 name.capitalize(), self)
@@ -164,20 +170,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.network_status.setFixedWidth(200)
         self.network_status.setContentsMargins(0, 0, 10, 0)
         self.network_status.setAlignment(QtCore.Qt.AlignRight)
-        if hasattr(self.menu, 'setCornerWidget'):
-            self.menu.setCornerWidget(self.network_status,
-                                      QtCore.Qt.TopRightCorner)
+        if hasattr(self, 'menuBar'):
+            if hasattr(self.menu, 'setCornerWidget'):
+                self.menu.setCornerWidget(self.network_status,
+                                        QtCore.Qt.TopRightCorner)
         self.network_status_set(STATUS_DISCONNECTED)
 
         # toolbar
-        toolbar = self.addToolBar('toolBar')
-        toolbar.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
-        toolbar.addActions([self.actions['connect'],
-                            self.actions['disconnect'],
-                            self.actions['debug'],
-                            self.actions['preferences'],
-                            self.actions['about'],
-                            self.actions['quit']])
+        if hasattr(self, 'addToolBar'):
+            toolbar = self.addToolBar('toolBar')
+            toolbar.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
+            toolbar.addActions([self.actions['connect'],
+                                self.actions['disconnect'],
+                                self.actions['debug'],
+                                self.actions['preferences'],
+                                self.actions['about'],
+                                self.actions['quit']])
 
         self.buffers[0].widget.input.setFocus()
 
@@ -258,8 +266,12 @@ class MainWindow(QtWidgets.QMainWindow):
     def network_status_set(self, status):
         """Set the network status."""
         pal = self.network_status.palette()
-        pal.setColor(self.network_status.foregroundRole(),
+        try:
+            pal.setColor(self.network_status.foregroundRole(),
                      self.network.status_color(status))
+        except:
+            # dunno
+            pass
         ssl = ' (SSL)' if status != STATUS_DISCONNECTED \
               and self.network.is_ssl() else ''
         self.network_status.setPalette(pal)
@@ -525,7 +537,7 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.network.debug_dialog:
             self.network.debug_dialog.close()
         config.write(self.config)
-        QtWidgets.QMainWindow.closeEvent(self, event)
+        QtWidgets.QFrame.closeEvent(self, event)
 
 
 def main():

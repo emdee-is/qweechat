@@ -22,7 +22,7 @@
 
 """About dialog box."""
 
-from PySide6 import QtCore, QtWidgets as QtGui
+from PyQt5 import QtCore, QtWidgets as QtGui
 
 from qweechat.version import qweechat_version
 

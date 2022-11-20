@@ -24,7 +24,7 @@
 
 import datetime
 
-from PySide6 import QtCore, QtWidgets, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui
 
 from qweechat import config
 from qweechat.weechat import color

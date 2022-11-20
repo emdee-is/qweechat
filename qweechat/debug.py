@@ -22,7 +22,7 @@
 
 """Debug window."""
 
-from PySide6 import QtWidgets
+from PyQt5 import QtWidgets
 
 from qweechat.chat import ChatTextEdit
 from qweechat.input import InputLineEdit

@@ -22,15 +22,16 @@
 
 """Input line for chat and debug window."""
 
-from PySide6 import QtCore, QtWidgets
-
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import pyqtSignal
+Signal = pyqtSignal
 
 class InputLineEdit(QtWidgets.QLineEdit):
     """Input line."""
 
-    bufferSwitchPrev = QtCore.Signal()
-    bufferSwitchNext = QtCore.Signal()
-    textSent = QtCore.Signal(str)
+    bufferSwitchPrev = Signal()
+    bufferSwitchNext = Signal()
+    textSent = Signal(str)
 
     def __init__(self, scroll_widget):
         super().__init__()

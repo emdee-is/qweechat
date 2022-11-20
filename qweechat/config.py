@@ -33,14 +33,14 @@ CONFIG_FILENAME = '%s/qweechat.conf' % CONFIG_DIR
 CONFIG_DEFAULT_RELAY_LINES = 50
 
 CONFIG_DEFAULT_SECTIONS = ('relay', 'look', 'color')
-CONFIG_DEFAULT_OPTIONS = (('relay.hostname', ''),
-                          ('relay.port', ''),
+CONFIG_DEFAULT_OPTIONS = (('relay.hostname', '127.0.0.1'),
+                          ('relay.port', '9000'),
                           ('relay.ssl', 'off'),
                           ('relay.password', ''),
                           ('relay.autoconnect', 'off'),
                           ('relay.lines', str(CONFIG_DEFAULT_RELAY_LINES)),
                           ('look.debug', 'off'),
-                          ('look.statusbar', 'off'))
+                          ('look.statusbar', 'on'))
 
 # Default colors for WeeChat color options (option name, #rgb value)
 CONFIG_DEFAULT_COLOR_OPTIONS = (
