@@ -20,7 +20,7 @@ Homepage: https://weechat.org/
 QWeeChat requires:
 
 - Python ≥ 3.7
-- [PySide6](https://pypi.org/project/PySide6/)
+- PyQt5
 - [WeeChat](https://weechat.org) ≥ 0.3.7, on local or remote machine, with relay plugin enabled and listening on a port with protocol "weechat"
 
 ### Install via source distribution
